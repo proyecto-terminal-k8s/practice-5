@@ -15,8 +15,8 @@ Esta práctica usa el addon CSI Hostpath de Minikube y la StorageClass
 ```bash
 minikube addons enable csi-hostpath-driver
 cd ../calculadora-backend
-docker build -t tu-registro/calculadora-backend:latest .
-docker push tu-registro/calculadora-backend:latest
+docker build -t calculadora-backend:latest .
+minikube image load calculadora-backend:latest
 cd ../practice-5
 kubectl apply -f namespace.yaml
 kubectl apply -f calculadora-pvc.yaml
@@ -25,6 +25,9 @@ kubectl apply -f calculadora-service.yaml
 kubectl rollout status deployment/calculadora-backend -n practice-5
 kubectl get pvc,pods -n practice-5
 ```
+
+Para usar un registro externo, publica `tu-registro/calculadora-backend:latest`
+y reemplaza esa imagen en `calculadora-backend.yaml`.
 
 El PVC debe mostrar `Bound`. Genera una operación y deja un log persistente:
 
